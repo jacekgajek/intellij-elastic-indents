@@ -20,15 +20,13 @@ public final class ShrinkingFacade {
 	}
 
 	public void enableShrinking() {
-		getEditorFactory().addEditorFactoryListener(NewEditorListener.get(project));
+		getEditorFactory().addEditorFactoryListener(NewEditorListener.get(project), project);
 
-		getProjectEditors()
-				.forEach(getService()::enableShrinking);
+		getProjectEditors().forEach(getService()::enableShrinking);
 	}
 
 	public void disableShrinking() {
-		getEditorFactory()
-				.removeEditorFactoryListener(NewEditorListener.get(project));
+		getEditorFactory().removeEditorFactoryListener(NewEditorListener.get(project));
 
 		getProjectEditors().forEach(getService()::disableShrinking);
 	}

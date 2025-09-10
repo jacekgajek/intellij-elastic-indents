@@ -24,7 +24,7 @@ final public class StretchingFacade {
 	}
 
 	public void enableStretching() {
-		editorFactory.addEditorFactoryListener(NewEditorListener.get(project));
+		editorFactory.addEditorFactoryListener(NewEditorListener.get(project), project);
 
 		getProjectEditors().forEach(getService()::enableStretching);
 	}

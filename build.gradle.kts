@@ -1,22 +1,21 @@
-import org.jetbrains.intellij.tasks.PatchPluginXmlTask
-
 plugins {
-    id("org.jetbrains.intellij") version "0.7.2"
+    id("org.jetbrains.intellij.platform") version "2.9.0"
     java
 }
 
 group = "io.github.heldev"
-version = "2.0.0"
+version = "3.0.0"
+
 
 repositories {
     mavenCentral()
-}
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
-intellij {
-    version = "2019.3"
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
-
-tasks.getByName<PatchPluginXmlTask>("patchPluginXml") {
-    untilBuild("")
+dependencies {
+    intellijPlatform {
+        create("IU", "2025.2")
+    }
 }
