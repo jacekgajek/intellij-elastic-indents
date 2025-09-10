@@ -26,8 +26,6 @@ public final class ShrinkingFacade {
 	}
 
 	public void disableShrinking() {
-		getEditorFactory().removeEditorFactoryListener(NewEditorListener.get(project));
-
 		getProjectEditors().forEach(getService()::disableShrinking);
 	}
 

@@ -30,12 +30,10 @@ final public class StretchingFacade {
 	}
 
 	public void disableStretching() {
-		editorFactory.removeEditorFactoryListener(NewEditorListener.get(project));
 		getProjectEditors().forEach(getService()::disableStretching);
 	}
 
 	private List<Editor> getProjectEditors() {
-
 		return Arrays.stream(editorFactory.getAllEditors())
 				.filter(editor -> project.equals(editor.getProject()))
 				.collect(toList());
