@@ -4,28 +4,26 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.ToggleAction;
 import org.jetbrains.annotations.NotNull;
 
-import static java.util.Objects.requireNonNull;
-
+import java.util.Optional;
 
 public class ToggleStretchingAction extends ToggleAction {
 
 	@Override
 	public boolean isSelected(@NotNull AnActionEvent event) {
-		return getFacade(event).isStretchingEnabled();
+		return getFacade(event).map(ElasticIndentationFacade::isStretchingEnabled).orElse(false);
 	}
 
 	@Override
 	public void setSelected(@NotNull AnActionEvent event, boolean isEnabled) {
 		if (isEnabled) {
-			getFacade(event).enableStretching();
+			getFacade(event).ifPresent(ElasticIndentationFacade::enableStretching);
 		} else {
-			getFacade(event).disableStretching();
+			getFacade(event).ifPresent(ElasticIndentationFacade::disableStretching);
 		}
 	}
 
-	public ElasticIndentationFacade getFacade(AnActionEvent event) {
-
-		return requireNonNull(event.getProject())
-				.getService(ElasticIndentationFacade.class);
+	public Optional<ElasticIndentationFacade> getFacade(AnActionEvent event) {
+		return Optional.ofNullable( event.getProject())
+                .map(project -> project.getService(ElasticIndentationFacade.class));
 	}
 }
